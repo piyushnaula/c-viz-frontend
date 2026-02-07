@@ -10,32 +10,36 @@ def configure_libclang():
     if Config.library_file:
         return
 
-    # Look for the bundled library from 'pip install libclang'
-    import site
-    site_packages = site.getsitepackages()
+    # Search in all python paths (site-packages)
+    import sys
     
-    potential_bundled_paths = []
-    for sp in site_packages:
-        # Common path for the libclang pypi package
-        potential_bundled_paths.append(os.path.join(sp, 'clang', 'native', 'libclang.so'))
-        potential_bundled_paths.append(os.path.join(sp, 'libclang', 'lib', 'libclang.so'))
-
-    # Likely paths for libclang in Debian/Ubuntu based images (Fallback)
-    system_paths = [
-        '/usr/lib/llvm-14/lib/libclang.so.1',
-        '/usr/lib/llvm-*/lib/libclang.so.1',
-        '/usr/lib/x86_64-linux-gnu/libclang-*.so.1',
-        '/usr/lib/libclang.so',
-        '/usr/local/lib/libclang.so'
+    print(f"[Backend] Searching for libclang in sys.path...")
+    
+    found_lib = None
+    
+    # Patterns to look for the bundled library
+    # The 'libclang' PyPI package typically puts it in 'native' folder or root of package
+    relative_patterns = [
+        os.path.join('libclang', 'native', 'libclang.so'),
+        os.path.join('libclang', 'lib', 'libclang.so'),
+        os.path.join('clang', 'native', 'libclang.so'),
+        os.path.join('clang', 'libclang.so')
     ]
-    
-    paths = potential_bundled_paths + system_paths
 
-    for pattern in paths:
-        matches = glob.glob(pattern)
-        if matches:
-            print(f"[Backend] Found libclang at: {matches[0]}")
-            Config.set_library_file(matches[0])
-            return
-    
-    print("[Backend] Warning: Could not find libclang.so. relying on system default.")
+    for path in sys.path:
+        for pattern in relative_patterns:
+            full_path = os.path.join(path, pattern)
+            if os.path.exists(full_path):
+                found_lib = full_path
+                break
+        if found_lib:
+            break
+            
+    if found_lib:
+        print(f"[Backend] Found bundled libclang at: {found_lib}")
+        Config.set_library_file(found_lib)
+    else:
+        print("[Backend] CRITICAL: Could not find bundled libclang in site-packages.")
+        print(f"[Backend] sys.path checked: {sys.path}")
+        # We purposely do NOT fallback to system paths to avoid the v19 mismatch.
+        # If this fails, we want it to fail here so we know the pip install didn't work as expected.
