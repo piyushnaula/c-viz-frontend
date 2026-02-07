@@ -1,5 +1,5 @@
 fastapi>=0.109.0
 uvicorn>=0.27.0
 pydantic>=2.5.0
-clang>=16.0.0
+libclang>=18.1.1
 python-multipart>=0.0.6
