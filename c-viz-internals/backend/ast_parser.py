@@ -16,6 +16,29 @@ def get_cursor_kind_name(cursor_kind: CursorKind) -> str:
     return cursor_kind.name
 
 
+def get_effective_children(cursor):
+    """
+    Helper to get children, skipping UnexposedExpr wrappers.
+    """
+    wrapper_names = {
+        'UNEXPOSED_EXPR',
+        'IMPLICIT_CAST_EXPR',
+        'PAREN_EXPR',
+        'C_STYLE_CAST_EXPR'
+    }
+    
+    for child in cursor.get_children():
+        kind_name = child.kind.name
+        # Use string comparison to avoid Enum version mismatches
+        if kind_name in wrapper_names:
+            # Debug: Log when we skip a wrapper
+            # print(f"[AST] Skipping wrapper: {kind_name}")
+            # If it's a wrapper, get its children instead (recursively)
+            yield from get_effective_children(child)
+        else:
+            yield child
+
+
 def traverse_ast(cursor, main_file: str, depth: int = 0) -> dict:
     """
     Recursively traverse the AST and build a JSON-serializable structure.
@@ -46,8 +69,10 @@ def traverse_ast(cursor, main_file: str, depth: int = 0) -> dict:
         "children": []
     }
     
+    
     # Traverse children
-    for child in cursor.get_children():
+    # Use get_effective_children to skip UnexposedExpr wrappers
+    for child in get_effective_children(cursor):
         # Only include nodes from the main source file (not included headers)
         if child.location.file:
             # Compare file paths - only include if from main file
