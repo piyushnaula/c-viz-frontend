@@ -5,7 +5,9 @@ RUN apt-get update && apt-get install -y \
     clang \
     llvm \
     libclang-dev \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    # Create symlink for libclang.so
+    && ln -s /usr/lib/llvm-*/lib/libclang.so.1 /usr/lib/libclang.so
 
 WORKDIR /app
 

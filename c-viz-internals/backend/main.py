@@ -31,6 +31,12 @@ class ParseRequest(BaseModel):
 
 # ... existing endpoints ...
 
+@app.get("/")
+async def root():
+    """Root endpoint to verify backend status."""
+    return {"message": "C-Viz Internals API is running. Visit /docs for API documentation."}
+
+
 @app.post("/api/optimize")
 async def optimize_source_code(request: ParseRequest):
     """
