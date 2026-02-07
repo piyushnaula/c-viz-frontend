@@ -1,0 +1,188 @@
+:root {
+  /* True Black Theme */
+  --bg-space: #000000;
+  --bg-panel: rgba(10, 10, 10, 0.8);
+  --bg-panel-hover: rgba(20, 20, 20, 0.9);
+  --border-glass: rgba(255, 255, 255, 0.15);
+  --border-glass-hover: rgba(255, 255, 255, 0.3);
+
+  /* Accents - Boosted for contrast against black */
+  --accent-primary: #9d74ff;
+  /* Brighter Violet */
+  --accent-secondary: #00e1ff;
+  /* Brighter Cyan */
+  --accent-success: #10b981;
+  /* Emerald */
+  --accent-warning: #fbbf24;
+  /* Amber */
+  --accent-error: #f87171;
+  /* Red */
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+
+  /* Layout */
+  --header-height: 60px;
+  --panel-radius: 12px;
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at top left, #111111, #000000);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08), transparent 25%);
+}
+
+
+
+.main-content {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  min-height: 0;
+}
+
+.panel {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.editor-panel {
+  flex: 1;
+}
+
+.viewer-panel {
+  flex: 1;
+}
+
+.console-panel {
+  flex-shrink: 0;
+}
+
+/* Responsive Design System */
+@media (max-width: 1024px) {
+  .app-container {
+    height: auto;
+    overflow-y: auto;
+    min-height: 100vh;
+  }
+
+  .main-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+    height: auto;
+  }
+
+  .panel {
+    min-height: 0;
+    flex: none;
+    width: 100%;
+  }
+
+  .editor-panel {
+    height: 60vh;
+  }
+
+  .viewer-panel {
+    height: 60vh;
+  }
+
+  .console-panel {
+    position: relative;
+    height: auto;
+    min-height: 40vh;
+    border-top: 1px solid var(--border-glass);
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: auto;
+  }
+
+
+
+  .editor-panel,
+  .viewer-panel {
+    height: 50vh;
+  }
+
+  .console-panel {
+    min-height: 50vh;
+  }
+
+  /* Adjust panel padding for mobile */
+  .panel {
+    padding: 0 !important;
+  }
+}
+
+/* Touch targets for mobile */
+@media (pointer: coarse) {
+
+  button,
+  .action-btn,
+  .tab,
+  .toggle-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .flow-controls button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Hide React Flow Attribution */
+.react-flow__attribution {
+  display: none !important;
+}

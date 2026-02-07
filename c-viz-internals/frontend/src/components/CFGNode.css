@@ -1,0 +1,109 @@
+.cfg-node {
+    background: var(--bg-panel);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-glass);
+    border-radius: 8px;
+    min-width: 180px;
+    max-width: 240px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cfg-node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent-primary);
+}
+
+.cfg-node.entry {
+    border-color: var(--accent-success);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+.cfg-node.exit {
+    border-color: var(--accent-error);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+}
+
+.cfg-node-header {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border-glass);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cfg-label {
+    color: var(--accent-secondary);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+.cfg-node.entry .cfg-label {
+    color: var(--accent-success);
+}
+
+.cfg-node.exit .cfg-label {
+    color: var(--accent-error);
+}
+
+.cfg-statements {
+    padding: 0.5rem 0;
+    background: rgba(30, 41, 59, 0.3);
+}
+
+.cfg-statement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.35rem 1rem;
+    color: var(--text-primary);
+    transition: background 0.15s ease;
+}
+
+.cfg-statement:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.stmt-text {
+    flex: 1;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.stmt-line {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    margin-left: 0.75rem;
+    font-feature-settings: "tnum";
+    opacity: 0.7;
+}
+
+.cfg-handle {
+    width: 8px !important;
+    height: 8px !important;
+    background: var(--accent-primary) !important;
+    border: 2px solid var(--bg-space) !important;
+    transition: all 0.2s ease;
+}
+
+.cfg-handle:hover {
+    width: 10px !important;
+    height: 10px !important;
+    background: var(--accent-secondary) !important;
+    box-shadow: 0 0 8px var(--accent-secondary);
+}
+
+.cfg-node.entry .cfg-handle[data-handlepos="top"] {
+    visibility: hidden;
+}
+
+.cfg-node.exit .cfg-handle[data-handlepos="bottom"] {
+    visibility: hidden;
+}

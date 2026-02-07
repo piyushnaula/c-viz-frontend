@@ -1,0 +1,101 @@
+.visualizer-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+    font-style: italic;
+    gap: 1.5rem;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    opacity: 0.3;
+    color: var(--accent-secondary);
+    filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(6, 182, 212, 0.1);
+    border-top-color: var(--accent-secondary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* React Flow customizations */
+.react-flow__renderer {
+    background: transparent !important;
+}
+
+.react-flow__pane {
+    cursor: grab;
+}
+
+.react-flow__pane.dragging {
+    cursor: grabbing;
+}
+
+
+
+
+
+.react-flow__edge-path {
+    stroke: var(--accent-secondary) !important;
+    stroke-width: 2px !important;
+    opacity: 0.6;
+    transition: all 0.2s ease !important;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+    stroke: var(--accent-primary) !important;
+    opacity: 1;
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 0 5px var(--accent-primary));
+}
+
+.react-flow__edge.animated path {
+    stroke-dasharray: 5;
+    animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+    to {
+        stroke-dashoffset: -10;
+    }
+}
+
+/* Stats panel */
+.stats-panel {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--bg-panel);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-glass);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.stats-panel span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.stats-panel strong {
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+}

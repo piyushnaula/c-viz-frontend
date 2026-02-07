@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: c-viz-backend
+    runtime: docker
+    repo: https://github.com/RENDER_USER/REPO_NAME # User will update this
+    rootDir: backend
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://c-viz-frontend.vercel.app # Placeholder for frontend URL
+      - key: PORT
+        value: 8000
+    plan: free
+    region: ohio
