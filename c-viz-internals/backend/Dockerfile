@@ -1,12 +1,14 @@
 FROM python:3.11-slim
 
-# Install clang and LLVM
+# Install clang-14 and LLVM-14 explicitely for compatibility
 RUN apt-get update && apt-get install -y \
-    clang \
-    llvm \
-    libclang-dev \
+    clang-14 \
+    llvm-14 \
+    libclang-14-dev \
     && rm -rf /var/lib/apt/lists/* \
-    # Find libclang.so.1 and symlink it to /usr/lib/libclang.so
+    # Symlink clang-14 to clang for general usage
+    && ln -s /usr/bin/clang-14 /usr/bin/clang \
+    # Find libclang.so.1 (usually inside llvm-14/lib) and symlink it
     && find /usr/lib -name "libclang.so.1" -exec ln -s {} /usr/lib/libclang.so \;
 
 WORKDIR /app

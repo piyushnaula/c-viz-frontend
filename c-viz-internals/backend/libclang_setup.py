@@ -12,6 +12,7 @@ def configure_libclang():
 
     # Likely paths for libclang in Debian/Ubuntu based images
     paths = [
+        '/usr/lib/llvm-14/lib/libclang.so.1',
         '/usr/lib/llvm-*/lib/libclang.so.1',
         '/usr/lib/x86_64-linux-gnu/libclang-*.so.1',
         '/usr/lib/libclang.so',
