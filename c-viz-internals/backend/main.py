@@ -7,6 +7,11 @@ from cfg_builder import build_cfg
 from preprocessor import preprocess_c_code
 from optimizer import optimize_code
 
+from libclang_setup import configure_libclang
+
+# Configure libclang environment
+configure_libclang()
+
 import os
 
 app = FastAPI(title="C-Viz Internals API")

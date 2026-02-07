@@ -5,9 +5,6 @@ Parses C source code and generates a recursive JSON AST structure.
 
 import uuid
 from clang.cindex import Index, CursorKind, Config
-import tempfile
-import os
-
 from static_analyzer import analyze_code
 
 
