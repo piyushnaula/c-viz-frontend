@@ -10,7 +10,11 @@ from optimizer import optimize_code
 from libclang_setup import configure_libclang
 
 # Configure libclang environment
-configure_libclang()
+try:
+    configure_libclang()
+    print("[Startup] libclang configuration complete.")
+except Exception as e:
+    print(f"[Startup] Error configuring libclang: {e}")
 
 import os
 
@@ -19,6 +23,8 @@ app = FastAPI(title="C-Viz Internals API")
 # Get allowed origins from environment variable
 origins_env = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:5174")
 origins = [origin.strip() for origin in origins_env.split(",") if origin.strip()]
+
+print(f"[Startup] ALLOWED_ORIGINS: {origins}")
 
 # Enable CORS for frontend communication
 app.add_middleware(
