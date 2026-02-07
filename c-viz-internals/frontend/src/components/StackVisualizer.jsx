@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Play, Pause, SkipBack, SkipForward, RotateCcw, Layers, Settings } from 'lucide-react';
 import { useAST } from '../context/ASTContext';
 import { simulateRecursion, getRecursiveInfo } from '../utils/stackSimulator';
@@ -73,17 +73,7 @@ function StackVisualizer({ onClose }) {
         setIsPlaying(!isPlaying);
     };
 
-    const stackContainerRef = useRef(null);
 
-    // Auto-scroll to top when step changes (to show latest frame)
-    useEffect(() => {
-        if (stackContainerRef.current) {
-            stackContainerRef.current.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-    }, [currentStep]);
 
     if (!astData) {
         return (
@@ -167,7 +157,7 @@ function StackVisualizer({ onClose }) {
                     {/* Stack visualization */}
                     <div className="stack-container">
                         <div className="stack-label">CALL STACK</div>
-                        <div className="stack-frames" ref={stackContainerRef}>
+                        <div className="stack-frames">
                             {currentState.fullStack?.length > 0 ? (
                                 currentState.fullStack.map((frame, index) => (
                                     <div
